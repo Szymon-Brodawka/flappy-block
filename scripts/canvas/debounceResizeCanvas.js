@@ -1,4 +1,5 @@
 import { debounce } from "../utility/debounce.js";
 import { resizeCanvas } from "./resizeCanvas.js";
 
-export const debounceResizeCanvas = debounce(resizeCanvas, 1000);
+const RESIZE_DELAY = 100;
+export const debounceResizeCanvas = debounce(resizeCanvas, RESIZE_DELAY);
