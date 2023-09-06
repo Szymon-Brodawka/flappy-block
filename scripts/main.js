@@ -1,9 +1,10 @@
-import { Rectangle } from "./Rectangle/Rectangle.js";
+import { Rectangle } from "./classes/Rectangle/Rectangle.js";
 import { debounceResizeCanvas } from "./DOM/canvas/debounceResizeCanvas.js";
 import { resizeCanvas } from "./DOM/canvas/resizeCanvas.js";
-import { Player } from "./Player/Player.js";
-import { handlePlayerMovement } from "./Player/handlePlayerMovement.js";
+import { Player } from "./classes/Player/Player.js";
+import { handlePlayerMovement } from "./classes/Player/handlePlayerMovement.js";
 import { debounceresizeCanvasElements } from "./DOM/canvas/debounceresizeCanvasElements.js";
+import { Pipe } from "./classes/Pipe/Pipe.js";
 
 resizeCanvas();
 
@@ -16,10 +17,24 @@ const PLAYER_SIZE = WINDOW_WIDTH / 25;
 const PLAYER_X_SPAWN = WINDOW_WIDTH / 20;
 const PLAYER_Y_SPAWN = (WINDOW_HEIGHT - PLAYER_SIZE) / 2;
 const PLAYER_COLOR = "purple";
+const SKY_HEIGHT = WINDOW_HEIGHT / 1.25;
+const GRASS_HEIGHT = (WINDOW_HEIGHT - SKY_HEIGHT);
+const PIPE_GAP = 200;
+const PIPE_X_SPAWN = 200;
+const PIPE_THICKNESS = 50;
+const TOP_PIPE_HEIGHT = WINDOW_HEIGHT / (Math.random() * 3 + 2);
+const BOTTOM_PIPE_Y_SPAWN = TOP_PIPE_HEIGHT + PIPE_GAP;
+const BOTTOM_PIPE_HEIGHT = WINDOW_HEIGHT - TOP_PIPE_HEIGHT;
 
-const sky = new Rectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT / 2, "lightblue", ctx);
-const grass = new Rectangle(0, WINDOW_HEIGHT, WINDOW_WIDTH, -(WINDOW_HEIGHT / 2), "lightcyan", ctx);
+const sky = new Rectangle(0, 0, WINDOW_WIDTH, SKY_HEIGHT, "lightblue", ctx);
+const grass = new Rectangle(0, SKY_HEIGHT, WINDOW_WIDTH, GRASS_HEIGHT, "lightcyan", ctx);
+const topPipe = new Pipe(PIPE_X_SPAWN, 0, PIPE_THICKNESS, TOP_PIPE_HEIGHT, "red", ctx);
+const bottomPipe = new Pipe(PIPE_X_SPAWN, BOTTOM_PIPE_Y_SPAWN, PIPE_THICKNESS, BOTTOM_PIPE_HEIGHT, "blue", ctx);
 const player = new Player(PLAYER_X_SPAWN, PLAYER_Y_SPAWN, PLAYER_SIZE, PLAYER_SIZE, PLAYER_COLOR, ctx);
 
-window.addEventListener("resize", () => debounceResizeCanvas());
 window.addEventListener("resize", () => debounceresizeCanvasElements(grass, sky, player));
+window.addEventListener("resize", () => debounceResizeCanvas());
+
+const animate = () => {
+
+}
