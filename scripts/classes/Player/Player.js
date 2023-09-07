@@ -1,9 +1,8 @@
 import { Rectangle } from "../Rectangle/Rectangle.js";
 
-export class Player extends Rectangle{
+export class Player extends Rectangle {
     constructor(x, y, width, height, color, ctx) {
         super(x, y, width, height, color, ctx);
-        super.initialize();
     }
 
     scale(windowWidth, windowHeight) {

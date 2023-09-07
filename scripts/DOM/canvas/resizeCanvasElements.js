@@ -1,4 +1,4 @@
-export const resizeCanvasElements = (grass, sky, player) => {
+export const resizeCanvasElements = (grass, sky, player, pipe) => {
     const windowHeight = window.innerHeight;
     const windowWidth = window.innerWidth;
 
@@ -8,4 +8,5 @@ export const resizeCanvasElements = (grass, sky, player) => {
     sky.scale(0, 0, windowWidth, SKY_HEIGHT);
     grass.scale(0, SKY_HEIGHT, windowWidth, GRASS_HEIGHT);
     player.scale(windowWidth, windowHeight);
+    // pipe.scale();
 }
