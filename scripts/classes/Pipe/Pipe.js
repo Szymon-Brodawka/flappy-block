@@ -1,34 +1,37 @@
-import { Rectangle } from "../Rectangle/Rectangle.js";
-
-const RANDOM_PIPE_HEIGHT = window.innerHeight / (Math.random() * 3 + 2);
-
-export class Pipe extends Rectangle {
-    constructor(x, y, width, color, ctx) {
-        super(x, y, width, RANDOM_PIPE_HEIGHT, color, ctx);
-        this.gap = 200;
+export class Pipe {
+    constructor(x, color, ctx) {
+        this.x = x;
+        this.y = 0;
+        this.width = window.innerWidth / 25;
+        this.randomNumber = (Math.random() * 10 + 1)
+        this.height = window.innerHeight / this.randomNumber;
+        this.color = color;
+        this.ctx = ctx;
+        this.gap = window.innerHeight / 4;
+        this.#initialize();
+    }
+    
+    #initialize() {
+        this.draw();
         this.#createBottomPipe();
     }
-
+    
     #createBottomPipe() {
-        this.y = this.height + this.gap;
-        this.height = window.innerHeight - this.height;
-        super.initialize();
+        console.log(this.height, this.height + this.gap)
+        this.ctx.fillRect(this.x, this.height + this.gap, this.width, window.innerHeight - (this.height + this.gap + 10));
     }
 
-    initialize() {
+    draw() {
         this.ctx.fillStyle = this.color;
         this.ctx.fillRect(this.x, this.y, this.width, this.height);
     }
 
-    scale(windowWidth, windowHeight) {
-        this.x = windowWidth / 1.25;
-        this.width = windowWidth / 25;
-        this.gap = windowHeight / 50;
-        // this.x = windowWidth / 30;
-        // this.y = windowHeight / 10;
-        this.ctx.fillStyle = this.color;
-        this.ctx.fillRect(this.x, this.y, this.width, this.height);
-
+    scale() {
+        this.x = window.innerWidth / 1.25;
+        this.width = window.innerWidth / 25;
+        this.height = window.innerHeight / this.randomNumber;
+        this.gap = window.innerHeight / 4;
+        this.draw();
         this.#createBottomPipe();
     }
 }
