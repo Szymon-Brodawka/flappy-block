@@ -19,4 +19,16 @@ export class Pipe extends Rectangle {
         this.ctx.fillStyle = this.color;
         this.ctx.fillRect(this.x, this.y, this.width, this.height);
     }
+
+    scale(windowWidth, windowHeight) {
+        this.x = windowWidth / 1.25;
+        this.width = windowWidth / 25;
+        this.gap = windowHeight / 50;
+        // this.x = windowWidth / 30;
+        // this.y = windowHeight / 10;
+        this.ctx.fillStyle = this.color;
+        this.ctx.fillRect(this.x, this.y, this.width, this.height);
+
+        this.#createBottomPipe();
+    }
 }

@@ -1,14 +1,24 @@
-import { Rectangle } from "../Rectangle/Rectangle.js";
-
-export class Player extends Rectangle {
-    constructor(x, y, width, height, color, ctx) {
-        super(x, y, width, height, color, ctx);
+export class Player {
+    constructor(size, color, ctx) {
+        this.color = color;
+        this.ctx = ctx;
+        this.size = size;
+        this.side = (window.innerHeight + window.innerWidth) / 600 * this.size;
+        this.updatePosition();
+        this.draw();
     }
 
-    scale(windowWidth, windowHeight) {
-        this.x = windowWidth / 20;
-        this.y = (windowHeight - this.height) / 2;
+    scaleSize() {
+        this.side = (window.innerHeight + window.innerWidth) / 600 * this.size;
+    }
+
+    updatePosition() {
+        this.x = window.innerWidth / this.side;
+        this.y = (window.innerHeight - this.side) / 2;
+    }
+
+    draw() {
         this.ctx.fillStyle = this.color;
-        this.ctx.fillRect(this.x, this.y, this.width, this.height);
+        this.ctx.fillRect(this.x, this.y, this.side, this.side);
     }
 }
