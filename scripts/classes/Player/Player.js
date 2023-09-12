@@ -25,7 +25,7 @@ export class Player {
     scale() {
         this.#scaleSide();
         this.#updatePosition();
-        this.#draw();
+        this.#draw(this.color);
     }
 
     moveUp() {
