@@ -6,10 +6,10 @@ export class Rectangle {
         this.height = height;
         this.color = color;
         this.ctx = ctx;
-        this.initialize();
+        this.#initialize();
     }
 
-    initialize() {
+    #initialize() {
         this.ctx.fillStyle = this.color;
         this.ctx.fillRect(this.x, this.y, this.width, this.height);
     }

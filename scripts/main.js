@@ -1,10 +1,10 @@
 import { Rectangle } from "./classes/Rectangle/Rectangle.js";
-import { debounceResizeCanvas } from "./DOM/canvas/debounceResizeCanvas.js";
-import { resizeCanvas } from "./DOM/canvas/resizeCanvas.js";
 import { Player } from "./classes/Player/Player.js";
 import { handlePlayerMovement } from "./classes/Player/handlePlayerMovement.js";
-import { debounceresizeCanvasElements } from "./DOM/canvas/debounceresizeCanvasElements.js";
 import { Pipe } from "./classes/Pipe/Pipe.js";
+import { debounceResizeCanvas } from "./DOM/canvas/resize/debounceResizeCanvas.js";
+import { resizeCanvas } from "./DOM/canvas/resize/resizeCanvas.js";
+import { debounceresizeCanvasElements } from "./DOM/canvas/resize/debounceresizeCanvasElements.js";
 
 resizeCanvas();
 
@@ -28,7 +28,9 @@ const pipe = new Pipe(PIPE_X_SPAWN, "red", ctx, player.side);
 
 window.addEventListener("resize", () => debounceResizeCanvas());
 window.addEventListener("resize", () => debounceresizeCanvasElements(grass, sky, player, pipe));
-
-// const animate = () => {
-
-// }
+window.addEventListener("click", (event) => {
+    handlePlayerMovement(event, player);
+});
+window.addEventListener("keydown", (event) => {
+    handlePlayerMovement(event, player);
+});

@@ -5,7 +5,7 @@ export class Player {
         this.size = size;
         this.#scaleSide();
         this.#updatePosition();
-        this.#draw();
+        this.#draw(this.color);
     }
 
     #scaleSide() {
@@ -17,14 +17,25 @@ export class Player {
         this.y = (window.innerHeight - this.side) / 2;
     }
 
-    #draw() {
-        this.ctx.fillStyle = this.color;
+    #draw(color) {
+        this.ctx.fillStyle = color;
         this.ctx.fillRect(this.x, this.y, this.side, this.side);
     }
 
-    update() {
+    scale() {
         this.#scaleSide();
         this.#updatePosition();
         this.#draw();
+    }
+
+    moveUp() {
+        this.clear();
+        this.y = this.y - this.side / 2;
+        this.#draw(this.color);
+    }
+
+    clear() {
+        this.ctx.fillStyle = "lightblue";
+        this.ctx.fillRect(this.x, this.y, this.side + 1, this.side + 1);
     }
 }
