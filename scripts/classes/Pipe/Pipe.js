@@ -1,13 +1,13 @@
 export class Pipe {
-    constructor(x, color, ctx) {
+    constructor(x, color, ctx, playerSide) {
         this.x = x;
         this.y = 0;
-        this.width = window.innerWidth / 25;
-        this.randomNumber = (Math.random() * 10 + 1)
+        this.width = playerSide * 1.5;
+        this.randomNumber = Math.random() * (Math.random() * 10) + 2;
         this.height = window.innerHeight / this.randomNumber;
         this.color = color;
         this.ctx = ctx;
-        this.gap = window.innerHeight / 4;
+        this.gap = playerSide * 4;
         this.#initialize();
     }
     
@@ -26,11 +26,11 @@ export class Pipe {
         this.ctx.fillRect(this.x, this.y, this.width, this.height);
     }
 
-    scale() {
+    scale(playerSide) {
         this.x = window.innerWidth / 1.25;
-        this.width = window.innerWidth / 25;
+        this.width = playerSide * 1.5;
         this.height = window.innerHeight / this.randomNumber;
-        this.gap = window.innerHeight / 4;
+        this.gap = playerSide * 2;
         this.draw();
         this.#createBottomPipe();
     }
