@@ -7,6 +7,6 @@ export const resizeCanvasElements = (grass, sky, player, pipe) => {
     
     sky.scale(0, 0, windowWidth, SKY_HEIGHT);
     grass.scale(0, SKY_HEIGHT, windowWidth, GRASS_HEIGHT);
-    player.update();
+    player.scale();
     pipe.scale(player.side);
 }
