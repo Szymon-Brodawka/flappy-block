@@ -3,10 +3,10 @@ export class Pipe {
         this.x = x;
         this.y = 0;
         this.randomNumber = Math.random() * (Math.random() * 10) + 2;
+        this.height = Math.floor(window.innerHeight / this.randomNumber);
         this.width = playerSide * 1.5;
         this.ctx = ctx;
         this.color = color;
-        this.height = window.innerHeight / this.randomNumber;
         this.gap = playerSide * 4;
         this.#initialize();
     }
@@ -17,7 +17,7 @@ export class Pipe {
     }
     
     #createBottomPipe() {
-        this.ctx.fillRect(this.x, this.height + this.gap, this.width, window.innerHeight - (this.height + this.gap + 10));
+        this.ctx.fillRect(this.x, this.height + this.gap, this.width, window.innerHeight - (this.height + this.gap));
     }
 
     draw() {
@@ -30,6 +30,13 @@ export class Pipe {
         this.width = playerSide * 1.5;
         this.height = window.innerHeight / this.randomNumber;
         this.gap = playerSide * 4;
+        this.draw();
+        this.#createBottomPipe();
+    }
+
+    moveLeft() {
+        if(this.x <= 0) return;
+        this.x -= 10;
         this.draw();
         this.#createBottomPipe();
     }

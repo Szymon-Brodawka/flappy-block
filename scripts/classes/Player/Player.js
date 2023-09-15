@@ -29,13 +29,7 @@ export class Player {
     }
 
     moveUp() {
-        this.clear();
         this.y = this.y - this.side / 2;
         this.#draw(this.color);
-    }
-
-    clear() {
-        this.ctx.fillStyle = "lightblue";
-        this.ctx.fillRect(this.x, this.y, this.side + 1, this.side + 1);
     }
 }
