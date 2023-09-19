@@ -7,7 +7,7 @@ import { handlePlayerMovement } from "./classes/Player/handlePlayerMovement.js";
 // import { resizeCanvas } from "./DOM/canvas/resize/resizeCanvas.js";
 import { debounceresizeCanvasElements } from "./DOM/canvas/resize/debounceresizeCanvasElements.js";
 import { debounceResizeCanvases } from "./DOM/canvas/resize/debounceResizeCanvases.js";
-// import { clearCanvas } from "./DOM/canvas/clearCanvas.js";
+import { clearCanvas } from "./DOM/canvas/clearCanvas.js";
 // import { drawNewCanvas } from "./DOM/canvas/drawNewCanvas.js";
 // import { repaintCanvas } from "./DOM/canvas/repaintCanvas.js";
 
@@ -33,21 +33,19 @@ const grass = new Rectangle(0, SKY_HEIGHT, WINDOW_WIDTH, GRASS_HEIGHT, "green", 
 const player = new Player(PLAYER_SIZE, "purple", playerCanvasCtx);
 const pipe = new Pipe(PIPE_X_SPAWN, "red", pipeCanvasCtx, player.side);
 
-window.addEventListener("resize", () => debounceResizeCanvases({ grass, sky, player, pipe }));
-// window.addEventListener("resize", () => debounceresizeCanvasElements(grass, sky, player, pipe));
+window.addEventListener("resize", () => debounceResizeCanvases(grass, sky, player, pipe));
+window.addEventListener("resize", () => debounceresizeCanvasElements(grass, sky, player, pipe));
 window.addEventListener("click", (event) => {
     handlePlayerMovement(event, player);
 });
-// window.addEventListener("keydown", (event) => {
-//     handlePlayerMovement(event, player);
-// });
+window.addEventListener("keydown", (event) => {
+    handlePlayerMovement(event, player);
+});
 
-// const animatePipe = () => {
-//     pipe.moveLeft();
-//     repaintCanvas();
-//     // clearCanvas();
-//     // drawNewCanvas(ctx, newCanvas);
-//     requestAnimationFrame(animatePipe);
-// }
+const animatePipe = () => {
+    clearCanvas(pipeCanvasCtx);
+    pipe.moveLeft();
+    requestAnimationFrame(animatePipe);
+}
 
-// animatePipe();
+animatePipe();
