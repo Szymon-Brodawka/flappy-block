@@ -5,10 +5,10 @@ export class Pipe {
         this.randomNumber = Math.random() * (Math.random() * 10) + 2;
         this.height = Math.floor(window.innerHeight / this.randomNumber);
         this.width = playerSide * 1.5;
-        this.gap = playerSide * 2.5;
+        this.gap = playerSide * 3;
         this.ctx = ctx;
         this.color = color;
-        this.speed = window.innerWidth / 200;
+        this.speed = 200;
         this.#initialize();
     }
     
@@ -34,9 +34,9 @@ export class Pipe {
         this.#createBottomPipe();
     }
 
-    moveLeft() {
+    moveLeft(secondsPassed) {
         if(this.x <= -this.width) return;
-        this.x -= this.speed;
+        this.x -= secondsPassed * this.speed;
         this.draw();
         this.#createBottomPipe();
     }

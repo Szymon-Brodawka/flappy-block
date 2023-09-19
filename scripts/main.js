@@ -3,13 +3,10 @@ import { Player } from "./classes/Player/Player.js";
 import { Pipe } from "./classes/Pipe/Pipe.js";
 import { resizeCanvases } from "./DOM/canvas/resize/resizeCanvases.js";
 import { handlePlayerMovement } from "./classes/Player/handlePlayerMovement.js";
-// import { debounceResizeCanvas } from "./DOM/canvas/resize/debounceResizeCanvas.js";
-// import { resizeCanvas } from "./DOM/canvas/resize/resizeCanvas.js";
 import { debounceresizeCanvasElements } from "./DOM/canvas/resize/debounceresizeCanvasElements.js";
 import { debounceResizeCanvases } from "./DOM/canvas/resize/debounceResizeCanvases.js";
 import { clearCanvas } from "./DOM/canvas/clearCanvas.js";
-// import { drawNewCanvas } from "./DOM/canvas/drawNewCanvas.js";
-// import { repaintCanvas } from "./DOM/canvas/repaintCanvas.js";
+
 
 resizeCanvases();
 const WINDOW_HEIGHT = window.innerHeight;
@@ -45,12 +42,19 @@ window.addEventListener("keydown", (event) => {
     handlePlayerMovement(event, player);
 });
 
-const gameLoop = () => {
+let secondsPassed = 0;
+let oldTimeStamp = 0;
+// const speed = 50;
+
+const gameLoop = (timeStamp) => {
+    secondsPassed = (timeStamp - oldTimeStamp) / 1000, 0.1;
+    secondsPassed = Math.min(secondsPassed, 0.1);
+    oldTimeStamp = timeStamp;
     clearCanvas(pipeCanvasCtx);
     clearCanvas(playerCanvasCtx);
-    player.moveDown();
-    pipe.moveLeft();
+    player.moveDown(secondsPassed);
+    pipe.moveLeft(secondsPassed);
     requestAnimationFrame(gameLoop);
 }
 
-gameLoop();
+gameLoop(performance.now());
