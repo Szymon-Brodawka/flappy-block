@@ -45,10 +45,12 @@ window.addEventListener("keydown", (event) => {
     handlePlayerMovement(event, player);
 });
 
-const animatePipe = () => {
+const gameLoop = () => {
     clearCanvas(pipeCanvasCtx);
+    clearCanvas(playerCanvasCtx);
+    player.moveDown();
     pipe.moveLeft();
-    requestAnimationFrame(animatePipe);
+    requestAnimationFrame(gameLoop);
 }
 
-animatePipe();
+gameLoop();

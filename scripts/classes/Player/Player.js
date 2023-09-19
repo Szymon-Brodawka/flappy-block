@@ -5,6 +5,7 @@ export class Player {
         this.size = size;
         this.#scaleSide();
         this.y = (window.innerHeight - this.side) / 2;
+        this.speed = this.side / 2 * 1.5;
         this.#updatePosition();
         this.#draw(this.color);
     }
@@ -30,7 +31,21 @@ export class Player {
     }
 
     moveUp() {
-        this.y = this.y - this.side / 2 * 1.5;
+        if(this.y <= 1) {
+            return;
+        }
+
+        this.y -= this.speed;
+        this.#draw(this.color);
+    }
+
+    moveDown() {
+        if(this.y >= window.innerHeight - this.side) {
+            this.#draw(this.color);
+            return;
+        }
+
+        this.y += this.speed / 50;
         this.#draw(this.color);
     }
 }
