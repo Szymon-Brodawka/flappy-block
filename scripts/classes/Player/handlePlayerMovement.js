@@ -1,5 +1,4 @@
 import { clearCanvas } from "../../DOM/canvas/clearCanvas.js";
-import { drawNewCanvas } from "../../DOM/canvas/drawNewCanvas.js";
 
 export const handlePlayerMovement = (event, player) => {
     if(player.y <= 1) {

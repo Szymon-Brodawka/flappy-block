@@ -34,7 +34,10 @@ const player = new Player(PLAYER_SIZE, "purple", playerCanvasCtx);
 const pipe = new Pipe(PIPE_X_SPAWN, "red", pipeCanvasCtx, player.side);
 
 window.addEventListener("resize", () => debounceResizeCanvases(grass, sky, player, pipe));
-window.addEventListener("resize", () => debounceresizeCanvasElements(grass, sky, player, pipe));
+window.addEventListener("resize", () => {
+    const oldCanvasHeight = window.innerHeight;
+    debounceresizeCanvasElements(grass, sky, player, pipe, oldCanvasHeight);
+});
 window.addEventListener("click", (event) => {
     handlePlayerMovement(event, player);
 });

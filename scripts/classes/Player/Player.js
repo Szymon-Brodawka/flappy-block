@@ -4,6 +4,7 @@ export class Player {
         this.ctx = ctx;
         this.size = size;
         this.#scaleSide();
+        this.y = (window.innerHeight - this.side) / 2;
         this.#updatePosition();
         this.#draw(this.color);
     }
@@ -12,9 +13,9 @@ export class Player {
         this.side = (window.innerHeight + window.innerWidth) / 500 * this.size;
     }
 
-    #updatePosition() {
+    #updatePosition(canvasDifferenceRatio = 1) {
         this.x = window.innerWidth / this.side;
-        this.y = (window.innerHeight - this.side) / 2;
+        this.y = canvasDifferenceRatio * this.y;
     }
 
     #draw(color) {
@@ -22,14 +23,14 @@ export class Player {
         this.ctx.fillRect(this.x, this.y, this.side, this.side);
     }
 
-    scale() {
+    scale(oldCanvasHeight) {
         this.#scaleSide();
-        this.#updatePosition();
+        this.#updatePosition(oldCanvasHeight / window.innerHeight);
         this.#draw(this.color);
     }
 
     moveUp() {
-        this.y = this.y - this.side / 2;
+        this.y = this.y - this.side / 2 * 1.5;
         this.#draw(this.color);
     }
 }

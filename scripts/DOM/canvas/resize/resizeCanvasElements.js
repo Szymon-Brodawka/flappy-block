@@ -1,6 +1,6 @@
 import { clearCanvas } from "../clearCanvas.js";
 
-export const resizeCanvasElements = (grass, sky, player, pipe) => {
+export const resizeCanvasElements = (grass, sky, player, pipe, oldCanvasHeight) => {
     const windowHeight = window.innerHeight;
     const windowWidth = window.innerWidth;
 
@@ -11,6 +11,6 @@ export const resizeCanvasElements = (grass, sky, player, pipe) => {
     clearCanvas(pipe.ctx);
     sky.scale(0, 0, windowWidth, SKY_HEIGHT);
     grass.scale(0, SKY_HEIGHT, windowWidth, GRASS_HEIGHT);
-    player.scale();
+    player.scale(oldCanvasHeight);
     pipe.scale(player.side);
 }
