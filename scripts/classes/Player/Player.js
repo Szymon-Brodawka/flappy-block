@@ -18,7 +18,7 @@ export class Player {
 
     #updatePosition(canvasDifferenceRatio = 1) {
         this.x = window.innerWidth / this.side;
-        this.y = canvasDifferenceRatio * this.y;
+        this.y = canvasDifferenceRatio * this.y + this.side / 2;
     }
 
     #draw(color) {
@@ -36,8 +36,6 @@ export class Player {
         if(this.y <= 1) {
             return;
         }
-
-
 
         this.y -= this.speed / 2;
         this.#draw(this.color);

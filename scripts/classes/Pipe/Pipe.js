@@ -10,7 +10,7 @@ export class Pipe {
         this.gap = playerSide * 3;
         this.ctx = ctx;
         this.color = color;
-        this.speed = 200;
+        this.speed = this.width * 5;
         this.#initialize();
     }
     
@@ -28,10 +28,14 @@ export class Pipe {
         this.ctx.fillRect(this.x, this.y, this.width, this.height);
     }
 
-    scale(playerSide) {
+    #update (canvasDifferenceRatio = 1, playerSide) {
         this.width = playerSide * 1.5;
-        this.height = window.innerHeight / this.randomNumber;
-        this.gap = playerSide * 2.5;
+        this.height = this.height * canvasDifferenceRatio;
+        this.gap = this.gap * canvasDifferenceRatio;
+    }
+
+    scale(oldCanvasHeight, playerSide) {
+        this.#update(oldCanvasHeight / window.innerHeight, playerSide);
         this.draw();
         this.#createBottomPipe();
     }
