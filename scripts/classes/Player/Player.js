@@ -6,7 +6,7 @@ export class Player {
         this.ctx = ctx;
         this.size = size;
         this.#scaleSide();
-        this.y = (window.innerHeight - this.side) / 2;
+        this.y = Math.floor((window.innerHeight - this.side) / 2);
         this.speed = this.side * 2;
         this.#updatePosition();
         this.#draw(this.color);
@@ -17,8 +17,8 @@ export class Player {
     }
 
     #updatePosition(canvasDifferenceRatio = 1) {
-        this.x = window.innerWidth / this.side;
-        this.y = canvasDifferenceRatio * this.y + this.side / 2;
+        this.x = Math.floor(window.innerWidth / this.side);
+        this.y = Math.floor(canvasDifferenceRatio * this.y + this.side / 2);
     }
 
     #draw(color) {

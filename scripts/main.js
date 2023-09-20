@@ -5,9 +5,34 @@ import { resizeCanvases } from "./DOM/canvas/resize/resizeCanvases.js";
 import { handlePlayerMovement } from "./classes/Player/handlePlayerMovement.js";
 import { debounceresizeCanvasElements } from "./DOM/canvas/resize/debounceresizeCanvasElements.js";
 import { debounceResizeCanvases } from "./DOM/canvas/resize/debounceResizeCanvases.js";
-
+import { checkForPipeColision } from "./gameLogic/collisions/checkForPipeColision.js";
+import { checkForGrassColision } from "./gameLogic/collisions/checkForGrassColision.js";
 
 resizeCanvases();
+
+let secondsPassed = 0;
+let oldTimeStamp = 0;
+let isGameOver = false;
+
+const gameLoop = (timeStamp) => {
+    if(isGameOver) {
+        return;
+    }
+
+    secondsPassed = (timeStamp - oldTimeStamp) / 1000;
+    secondsPassed = Math.min(secondsPassed, 0.1);
+    oldTimeStamp = timeStamp;
+    player.moveDown(secondsPassed);
+    pipe.moveLeft(secondsPassed);
+
+    if(
+        checkForPipeColision(player, [pipe])
+        || checkForGrassColision(player, grass)
+    ) { isGameOver = true; }
+
+    requestAnimationFrame(gameLoop);
+}
+
 const WINDOW_HEIGHT = window.innerHeight;
 const WINDOW_WIDTH = window.innerWidth;
 
@@ -29,28 +54,20 @@ const grass = new Rectangle(0, SKY_HEIGHT, WINDOW_WIDTH, GRASS_HEIGHT, "green", 
 const player = new Player(PLAYER_SIZE, "purple", playerCanvasCtx);
 const pipe = new Pipe(PIPE_X_SPAWN, "red", pipeCanvasCtx, player.side);
 
+gameLoop(performance.now());
+
 window.addEventListener("resize", () => debounceResizeCanvases(grass, sky, player, pipe));
 window.addEventListener("resize", () => {
     const oldCanvasHeight = window.innerHeight;
     debounceresizeCanvasElements(grass, sky, player, pipe, oldCanvasHeight);
 });
 window.addEventListener("click", (event) => {
+    if(isGameOver) return;
+
     handlePlayerMovement(event, player);
 });
 window.addEventListener("keydown", (event) => {
+    if(isGameOver) return;
+
     handlePlayerMovement(event, player);
 });
-
-let secondsPassed = 0;
-let oldTimeStamp = 0;
-
-const gameLoop = (timeStamp) => {
-    secondsPassed = (timeStamp - oldTimeStamp) / 1000;
-    secondsPassed = Math.min(secondsPassed, 0.1);
-    oldTimeStamp = timeStamp;
-    player.moveDown(secondsPassed);
-    pipe.moveLeft(secondsPassed);
-    requestAnimationFrame(gameLoop);
-}
-
-gameLoop(performance.now());
