@@ -10,6 +10,7 @@ import { checkForGrassColision } from "./gameLogic/collisions/checkForGrassColis
 
 resizeCanvases();
 
+let score = 0;
 let secondsPassed = 0;
 let oldTimeStamp = 0;
 let isGameOver = false;
