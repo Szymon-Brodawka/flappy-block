@@ -5,7 +5,6 @@ import { resizeCanvases } from "./DOM/canvas/resize/resizeCanvases.js";
 import { handlePlayerMovement } from "./classes/Player/handlePlayerMovement.js";
 import { debounceresizeCanvasElements } from "./DOM/canvas/resize/debounceresizeCanvasElements.js";
 import { debounceResizeCanvases } from "./DOM/canvas/resize/debounceResizeCanvases.js";
-import { clearCanvas } from "./DOM/canvas/clearCanvas.js";
 
 
 resizeCanvases();
@@ -44,14 +43,11 @@ window.addEventListener("keydown", (event) => {
 
 let secondsPassed = 0;
 let oldTimeStamp = 0;
-// const speed = 50;
 
 const gameLoop = (timeStamp) => {
-    secondsPassed = (timeStamp - oldTimeStamp) / 1000, 0.1;
+    secondsPassed = (timeStamp - oldTimeStamp) / 1000;
     secondsPassed = Math.min(secondsPassed, 0.1);
     oldTimeStamp = timeStamp;
-    clearCanvas(pipeCanvasCtx);
-    clearCanvas(playerCanvasCtx);
     player.moveDown(secondsPassed);
     pipe.moveLeft(secondsPassed);
     requestAnimationFrame(gameLoop);

@@ -1,3 +1,5 @@
+import { clearCanvas } from "../../DOM/canvas/clearCanvas.js";
+
 export class Pipe {
     constructor(x, color, ctx, playerSide) {
         this.x = x;
@@ -36,6 +38,8 @@ export class Pipe {
 
     moveLeft(secondsPassed) {
         if(this.x <= -this.width) return;
+
+        clearCanvas(this.ctx);
         this.x -= secondsPassed * this.speed;
         this.draw();
         this.#createBottomPipe();

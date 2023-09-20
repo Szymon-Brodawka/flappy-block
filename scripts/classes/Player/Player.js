@@ -1,3 +1,5 @@
+import { clearCanvas } from "../../DOM/canvas/clearCanvas.js";
+
 export class Player {
     constructor(size, color, ctx) {
         this.color = color;
@@ -35,6 +37,8 @@ export class Player {
             return;
         }
 
+
+
         this.y -= this.speed / 2;
         this.#draw(this.color);
     }
@@ -45,6 +49,7 @@ export class Player {
             return;
         }
 
+        clearCanvas(this.ctx);
         this.y += this.speed * secondsPassed;
         this.#draw(this.color);
     }
