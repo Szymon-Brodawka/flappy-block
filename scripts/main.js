@@ -7,32 +7,10 @@ import { debounceresizeCanvasElements } from "./DOM/canvas/resize/debounceresize
 import { debounceResizeCanvases } from "./DOM/canvas/resize/debounceResizeCanvases.js";
 import { checkForPipeColision } from "./gameLogic/collisions/checkForPipeColision.js";
 import { checkForGrassColision } from "./gameLogic/collisions/checkForGrassColision.js";
+import { drawScore } from "./DOM/scoreCanvas/drawScore.js";
 
 resizeCanvases();
-
-let score = 0;
-let secondsPassed = 0;
-let oldTimeStamp = 0;
-let isGameOver = false;
-
-const gameLoop = (timeStamp) => {
-    if(isGameOver) {
-        return;
-    }
-
-    secondsPassed = (timeStamp - oldTimeStamp) / 1000;
-    secondsPassed = Math.min(secondsPassed, 0.1);
-    oldTimeStamp = timeStamp;
-    player.moveDown(secondsPassed);
-    pipe.moveLeft(secondsPassed);
-
-    if(
-        checkForPipeColision(player, [pipe])
-        || checkForGrassColision(player, grass)
-    ) { isGameOver = true; }
-
-    requestAnimationFrame(gameLoop);
-}
+drawScore();
 
 const WINDOW_HEIGHT = window.innerHeight;
 const WINDOW_WIDTH = window.innerWidth;
@@ -55,6 +33,30 @@ const grass = new Rectangle(0, SKY_HEIGHT, WINDOW_WIDTH, GRASS_HEIGHT, "green", 
 const player = new Player(PLAYER_SIZE, "purple", playerCanvasCtx);
 const pipe = new Pipe(PIPE_X_SPAWN, "red", pipeCanvasCtx, player.side);
 
+let score = 0;
+let secondsPassed = 0;
+let oldTimeStamp = 0;
+let isGameOver = false;
+
+const gameLoop = (timeStamp) => {
+    if(isGameOver) {
+        return;
+    }
+
+    secondsPassed = (timeStamp - oldTimeStamp) / 1000;
+    secondsPassed = Math.min(secondsPassed, 0.1);
+    oldTimeStamp = timeStamp;
+    player.moveDown(secondsPassed);
+    pipe.moveLeft(secondsPassed);
+
+    if(
+        checkForPipeColision(player, [pipe])
+        || checkForGrassColision(player, grass)
+    ) isGameOver = true;
+
+    requestAnimationFrame(gameLoop);
+}
+
 gameLoop(performance.now());
 
 window.addEventListener("resize", () => debounceResizeCanvases(grass, sky, player, pipe));
@@ -64,11 +66,9 @@ window.addEventListener("resize", () => {
 });
 window.addEventListener("click", (event) => {
     if(isGameOver) return;
-
     handlePlayerMovement(event, player);
 });
 window.addEventListener("keydown", (event) => {
     if(isGameOver) return;
-
     handlePlayerMovement(event, player);
 });
